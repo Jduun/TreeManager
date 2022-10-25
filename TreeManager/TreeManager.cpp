@@ -117,7 +117,7 @@ void RemoveNodeFromBSTree(std::vector<std::any> params)
         std::cout << "Узла с таким значением не существует дереве.\n";
         return;
     }
-    bstree->Insert(data);
+    bstree->RemoveNode(data);
     std::cout << "Узел успешно удален из дерева!\n";
     output_log.Logging(bstree->getInorderTraversal());
 }
