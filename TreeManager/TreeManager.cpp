@@ -34,7 +34,7 @@ void ReadInputFile(std::vector<std::any> params);
 int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "ru");
-    std::string load_data_file = "input.txt";
+    std::string load_data_file = "Input.txt";
     std::string write_data_file = "output_log.txt";
     std::string log_data_file = "error_log.txt";
     if (argc >= 3)
@@ -44,9 +44,10 @@ int main(int argc, char* argv[])
         log_data_file = argv[3];
     }
     BSTree* bstree = new BSTree();
-    FileLogging error_log(log_data_file);
-    FileLogging output_log(write_data_file);
-    std::vector<std::any> params { bstree, error_log, output_log, load_data_file };
+    FileLogging errorLog(log_data_file);
+    FileLogging outputLog(write_data_file);
+    FileLogging inputFile(load_data_file);
+    std::vector<std::any> params { bstree, errorLog, outputLog, inputFile };
     Menu menu = Menu("Главное", std::vector<Menu>
     {
         Menu("Вывести дерево", std::vector<Menu>
@@ -160,7 +161,6 @@ void PrintVerticalBSTree(std::vector<std::any> params)
     bstree->PrintVertical();
 }
 
-// не доработано
 void PrintVerticalWithBranchesBSTree(std::vector<std::any> params)
 {
     auto bstree = any_cast<BSTree*>(params[0]);
@@ -271,7 +271,9 @@ void ReadInputFile(std::vector<std::any> params)
 {
     auto bstree = any_cast<BSTree*>(params[0]);
     auto output_log = any_cast<FileLogging>(params[2]);
-    auto inp = any_cast<std::string&>(params[3]);
+    auto fl = any_cast<FileLogging>(params[3]);
+    auto inp = fl.getFileName();
+    fl.PrintFile();
     std::cout << inp << std::endl;
     std::fstream fin(inp, std::ios::in);
     if (fin.is_open())

@@ -13,6 +13,7 @@ public:
 	FileLogging(std::string fileName);
 	void Logging(std::string message);
 	void PrintFile();
+	std::string getFileName();
 
 private:
 	std::string getTime();

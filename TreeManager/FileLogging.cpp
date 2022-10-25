@@ -15,6 +15,11 @@ void FileLogging::Logging(std::string message)
 	fout.close();
 }
 
+std::string FileLogging::getFileName()
+{
+	return fileName;
+}
+
 std::string FileLogging::getTime()
 {
 	time_t seconds = time(NULL);
